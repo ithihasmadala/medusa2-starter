@@ -9,7 +9,10 @@ import { Bars3Icon } from '@heroicons/react/24/outline';
 import ShoppingBagIcon from '@heroicons/react/24/outline/ShoppingBagIcon';
 import clsx from 'clsx';
 import { type FC, useState } from 'react';
+import { CategoryDropdown } from './CategoryDropdown';
+import { CollectionDropdown } from './CollectionDropdown';
 import { HeaderSideNav } from './HeaderSideNav';
+import { SearchInput } from './SearchInput';
 import { useActiveSection } from './useActiveSection';
 
 export type HeaderProps = {};
@@ -21,6 +24,8 @@ export const Header: FC<HeaderProps> = () => {
   const { activeSection } = useActiveSection(headerNavigationItems);
   const rootLoader = useRootLoaderData();
   const hasProducts = rootLoader?.hasPublishedProducts;
+  const categories = rootLoader?.categories || [];
+  const collections = rootLoader?.collections || [];
 
   if (!headerNavigationItems) return <>Loading...</>;
 
@@ -66,32 +71,46 @@ export const Header: FC<HeaderProps> = () => {
                 )}
               >
                 <LogoStoreName className="xs:h-14 h-8" primary />
-                <div className="flex flex-wrap-reverse items-center gap-x-6 sm:justify-end">
+                <div className="flex items-center gap-x-6">
                   {headerNavigationItems && (
-                    <div className="hidden h-full gap-6 md:flex">
-                      {headerNavigationItems.slice(0, 6).map(({ id, new_tab, ...navItemProps }, index) => (
-                        <URLAwareNavLink
-                          key={id}
-                          {...navItemProps}
-                          newTab={new_tab}
-                          className={({ isActive }) =>
-                            clsx('my-4 flex items-center whitespace-nowrap text-base font-normal', {
-                              'hover:underline': !isActive,
-                              'border-b-primary-200 border-b-2':
-                                isActive &&
-                                (!navItemProps.url.includes('#') ||
-                                  activeSection === navItemProps.url.split('#')[1].split('?')[0]),
-                            })
-                          }
-                          prefetch="viewport"
-                        >
-                          {navItemProps.label}
-                        </URLAwareNavLink>
-                      ))}
+                    <div className="hidden h-full items-center gap-6 md:flex">
+                      {/* Category and Collection Dropdowns */}
+                      <CategoryDropdown categories={categories} />
+                      <CollectionDropdown collections={collections} />
+
+                      {/* Existing navigation items */}
+                      {headerNavigationItems
+                        .filter((item) => item.label !== 'View our Blends')
+                        .slice(0, 2)
+                        .map(({ id, new_tab, ...navItemProps }, index) => (
+                          <URLAwareNavLink
+                            key={id}
+                            {...navItemProps}
+                            newTab={new_tab}
+                            className={({ isActive }) =>
+                              clsx(
+                                'flex items-center whitespace-nowrap text-base font-normal hover:text-gray-300 transition-colors',
+                                {
+                                  'hover:underline': !isActive,
+                                  'border-b-primary-200 border-b-2':
+                                    isActive &&
+                                    (!navItemProps.url.includes('#') ||
+                                      activeSection === navItemProps.url.split('#')[1].split('?')[0]),
+                                },
+                              )
+                            }
+                            prefetch="viewport"
+                          >
+                            {navItemProps.label}
+                          </URLAwareNavLink>
+                        ))}
                     </div>
                   )}
 
                   <div className="flex items-center justify-end">
+                    {/* Search Input */}
+                    <SearchInput className="hidden md:block mr-4" />
+
                     <div className="flex items-center gap-x-3 text-sm">
                       {!!cart && hasProducts && (
                         <IconButton
@@ -116,6 +135,7 @@ export const Header: FC<HeaderProps> = () => {
                           onClick={() => toggleCartDrawer(true)}
                         />
                       )}
+                      {/* Mobile navigation menu button */}
                       {!!headerNavigationItems?.length && (
                         <IconButton
                           aria-label="open navigation menu"

@@ -7,6 +7,13 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   server: {
     port: 3000,
+    host: true, // Allow external connections
+    allowedHosts: [
+      'localhost',
+      '.localhost',
+      '.trycloudflare.com', // Allow all Cloudflare tunnel domains
+      'crash-bryan-examinations-sic.trycloudflare.com', // Your specific tunnel
+    ],
     warmup: {
       clientFiles: ['./app/entry.client.tsx', './app/root.tsx', './app/routes/**/*'],
     },

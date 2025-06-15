@@ -8,6 +8,8 @@ import { RemixLoaderResponse } from 'types/remix';
 import { config } from './config.server';
 import { getSelectedRegionId, setSelectedRegionId } from './cookies.server';
 import { enrichLineItems, retrieveCart } from './data/cart.server';
+import { listCategories } from './data/categories.server';
+import { fetchCollections } from './data/collections.server';
 import { getCustomer } from './data/customer.server';
 import { getSelectedRegion, listRegions } from './data/regions.server';
 import { fetchProducts } from './products.server';
@@ -19,11 +21,13 @@ const fetchHasProducts = async (request: Request) => {
 export const getRootLoader = async ({ request }: LoaderFunctionArgs) => {
   const region = await getSelectedRegion(request.headers);
 
-  const [cart, regions, customer, hasPublishedProducts] = await Promise.all([
+  const [cart, regions, customer, hasPublishedProducts, categories, collectionsData] = await Promise.all([
     retrieveCart(request),
     listRegions(),
     getCustomer(request),
     fetchHasProducts(request),
+    listCategories(),
+    fetchCollections(),
   ]);
 
   const headers = new Headers();
@@ -58,9 +62,11 @@ export const getRootLoader = async ({ request }: LoaderFunctionArgs) => {
       customer,
       regions,
       region,
+      categories,
+      collections: collectionsData.collections,
       siteDetails: {
         store: {
-          name: 'BARRIO',
+          name: 'Buy Retatrutide UK',
         },
         settings: siteSettings,
         headerNavigationItems,

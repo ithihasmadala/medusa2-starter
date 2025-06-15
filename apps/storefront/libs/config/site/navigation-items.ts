@@ -2,18 +2,10 @@ import { NavigationCollection, NavigationItemLocation } from '@libs/types';
 
 export const headerNavigationItems: NavigationCollection = [
   {
-    id: 1,
-    label: 'View our Blends',
-    url: '/categories/blends',
-    sort_order: 0,
-    location: NavigationItemLocation.header,
-    new_tab: false,
-  },
-  {
     id: 3,
     label: 'Our Story',
     url: '/about-us',
-    sort_order: 1,
+    sort_order: 0,
     location: NavigationItemLocation.header,
     new_tab: false,
   },

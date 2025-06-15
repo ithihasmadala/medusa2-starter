@@ -19,8 +19,9 @@ import '@app/styles/global.css';
 import { useRootLoaderData } from './hooks/useRootLoaderData';
 
 export const getRootMeta: MetaFunction = ({ data }) => {
-  const title = 'Barrio Store';
-  const description = 'Discover our artisan-roasted coffee, crafted with care and delivered to your door.';
+  const title = 'Buy Retatrutide UK';
+  const description =
+    'Premium Retatrutide sourced with care and delivered to your door. Your trusted partner for wellness products.';
   const ogTitle = title;
   const ogDescription = description;
   const ogImage = '';

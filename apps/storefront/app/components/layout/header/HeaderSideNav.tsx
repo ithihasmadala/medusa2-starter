@@ -1,100 +1,151 @@
-import { IconButton } from '@app/components/common/buttons';
 import { URLAwareNavLink } from '@app/components/common/link';
+import { useRootLoaderData } from '@app/hooks/useRootLoaderData';
 import { useSiteDetails } from '@app/hooks/useSiteDetails';
-import { Dialog, Transition } from '@headlessui/react';
-import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon } from '@heroicons/react/20/solid';
+import { SearchInput } from './SearchInput';
 import clsx from 'clsx';
-import { type FC, Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 export interface HeaderSideNavProps {
-  className?: string;
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
   activeSection?: string | null;
 }
 
-export const HeaderSideNav: FC<HeaderSideNavProps> = ({ open, setOpen, activeSection }) => {
+export const HeaderSideNav = ({ open = false, setOpen, activeSection }: HeaderSideNavProps) => {
   const { headerNavigationItems } = useSiteDetails();
+  const rootData = useRootLoaderData();
+  const categories = rootData?.categories || [];
+  const collections = rootData?.collections || [];
+  const [showCategories, setShowCategories] = useState(false);
+  const [showCollections, setShowCollections] = useState(false);
+
+  if (!headerNavigationItems) return null;
 
   return (
-    <Transition.Root show={!!open} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={() => setOpen(false)}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-in-out duration-200"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in-out duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-300 bg-opacity-50 backdrop-blur-sm transition-opacity" />
-        </Transition.Child>
+    <Dialog open={open} onClose={() => setOpen?.(false)} className="relative z-40 lg:hidden">
+      <div className="fixed inset-0 bg-black bg-opacity-25" />
 
-        <div className="fixed inset-0 overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-              <Transition.Child
-                as={Fragment}
-                enter="transform transition ease-in-out duration-200"
-                enterFrom="translate-x-full"
-                enterTo="translate-x-0"
-                leave="transform transition ease-in-out duration-200"
-                leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
-              >
-                <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                    <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                      <div className="flex items-center justify-between">
-                        <Dialog.Title className="text-lg font-bold text-gray-900">Navigation</Dialog.Title>
-                        <div className="ml-3 flex h-7 items-center">
-                          <IconButton
-                            icon={XMarkIcon}
-                            onClick={() => setOpen(false)}
-                            className="-m-2"
-                            aria-label="Close panel"
-                          />
-                        </div>
-                      </div>
-
-                      {!!headerNavigationItems?.length && (
-                        <div className="flex flex-grow flex-col overflow-y-auto pb-4">
-                          <div className="mt-5 flex flex-grow flex-col">
-                            <nav className="flex-1 space-y-1" aria-label="Sidebar">
-                              {headerNavigationItems.map(({ id, new_tab, ...navItemProps }) => (
-                                <URLAwareNavLink
-                                  key={id}
-                                  {...navItemProps}
-                                  newTab={new_tab}
-                                  onClick={() => setOpen(false)}
-                                  className={({ isActive }) =>
-                                    clsx(
-                                      'group flex items-center rounded-md px-4 py-3 text-sm font-normal',
-                                      isActive &&
-                                        (!navItemProps.url.includes('#') ||
-                                          activeSection === navItemProps.url.split('#')[1].split('?')[0])
-                                        ? 'bg-gray-100 text-gray-900'
-                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                                    )
-                                  }
-                                  prefetch="viewport"
-                                >
-                                  <span className="flex-1">{navItemProps.label}</span>
-                                </URLAwareNavLink>
-                              ))}
-                            </nav>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
+      <div className="fixed inset-0 z-40 flex">
+        <DialogPanel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
+          <div className="flex px-4 pb-2 pt-5">
+            <button
+              type="button"
+              className="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
+              onClick={() => setOpen?.(false)}
+            >
+              <span className="sr-only">Close menu</span>
+              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
           </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
+
+          <div className="mt-2">
+            {/* Search Section */}
+            <div className="px-4 pb-4 border-b border-gray-200">
+              <SearchInput
+                variant="mobile-nav"
+                className="w-full"
+                placeholder="Search products..."
+                onSearch={() => setOpen?.(false)}
+              />
+            </div>
+
+            <nav className="px-4 pb-8">
+              <ul className="divide-y divide-gray-200">
+                {/* Categories Section */}
+                <li className="py-3">
+                  <button
+                    onClick={() => setShowCategories(!showCategories)}
+                    className="flex w-full items-center justify-between text-base font-medium text-gray-600"
+                  >
+                    <span>Shop by Category</span>
+                    <ChevronRightIcon
+                      className={clsx('h-5 w-5 transition-transform', {
+                        'rotate-90': showCategories,
+                      })}
+                    />
+                  </button>
+                  {showCategories && (
+                    <ul className="mt-2 ml-4 space-y-2">
+                      {categories.map((category) => (
+                        <li key={category.id}>
+                          <URLAwareNavLink
+                            url={`/categories/${category.handle}`}
+                            className="block py-2 text-sm text-gray-600 hover:text-gray-900"
+                            onClick={() => setOpen?.(false)}
+                            prefetch="viewport"
+                          >
+                            {category.name}
+                          </URLAwareNavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+
+                {/* Collections Section */}
+                <li className="py-3">
+                  <button
+                    onClick={() => setShowCollections(!showCollections)}
+                    className="flex w-full items-center justify-between text-base font-medium text-gray-600"
+                  >
+                    <span>Shop by Collection</span>
+                    <ChevronRightIcon
+                      className={clsx('h-5 w-5 transition-transform', {
+                        'rotate-90': showCollections,
+                      })}
+                    />
+                  </button>
+                  {showCollections && (
+                    <ul className="mt-2 ml-4 space-y-2">
+                      {collections.map((collection) => (
+                        <li key={collection.id}>
+                          <URLAwareNavLink
+                            url={`/collections/${collection.handle}`}
+                            className="block py-2 text-sm text-gray-600 hover:text-gray-900"
+                            onClick={() => setOpen?.(false)}
+                            prefetch="viewport"
+                          >
+                            {collection.title}
+                          </URLAwareNavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+
+                {/* Regular Navigation Items */}
+                {headerNavigationItems.map(({ id, new_tab, ...navItemProps }) => (
+                  <li key={id} className="py-3">
+                    <URLAwareNavLink
+                      {...navItemProps}
+                      newTab={new_tab}
+                      className={({ isActive }) =>
+                        clsx('block text-base font-medium', {
+                          'text-gray-900 font-bold':
+                            isActive &&
+                            (!navItemProps.url.includes('#') ||
+                              activeSection === navItemProps.url.split('#')[1].split('?')[0]),
+                          'text-gray-600':
+                            !isActive ||
+                            (navItemProps.url.includes('#') &&
+                              activeSection !== navItemProps.url.split('#')[1].split('?')[0]),
+                        })
+                      }
+                      onClick={() => setOpen?.(false)}
+                      prefetch="viewport"
+                    >
+                      {navItemProps.label}
+                    </URLAwareNavLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </DialogPanel>
+      </div>
+    </Dialog>
   );
 };
