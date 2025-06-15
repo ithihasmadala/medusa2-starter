@@ -1,0 +1,343 @@
+# Comprehensive Tags List
+
+## OVERVIEW
+Tags are used to help customers find products through search and filtering. Based on our categories, collections, product types, and product lists, here are comprehensive tags organized by category.
+
+## TAG CATEGORIES
+
+### 1. BRAND TAGS
+**Purpose**: Identify product manufacturers and brands
+- adelphi
+- adelphi-research
+- rohm
+- rohm-labs
+- hilma
+- hilma-biocare
+- optimum
+- optimum-biotech
+- pfizer
+- pharmaceutical-grade
+- pharma
+
+### 2. COMPOUND TYPE TAGS
+**Purpose**: Categorize by active ingredients and compound families
+
+#### Anabolic Steroids
+- testosterone
+- trenbolone
+- nandrolone
+- deca
+- npp
+- boldenone
+- equipoise
+- masteron
+- drostanolone
+- primobolan
+- methenolone
+- parabolan
+- sustanon
+- ment
+- trestolone
+
+#### Oral Steroids
+- anavar
+- oxandrolone
+- winstrol
+- stanozolol
+- dianabol
+- methandrostenolone
+- anadrol
+- oxymetholone
+- turinabol
+- chlorodehydromethyltestosterone
+- halotestin
+- fluoxymesterone
+- superdrol
+- methyldrostanolone
+- proviron
+- mesterolone
+
+#### Weight Loss Compounds
+- tirzepatide
+- retatrutide
+- clenbuterol
+- t3
+- liothyronine
+- t4
+- levothyroxine
+- t5
+- yohimbine
+
+#### Growth Hormones
+- hgh
+- growth-hormone
+- genotropin
+- genxtropin
+
+### 3. ADMINISTRATION METHOD TAGS
+**Purpose**: Filter by how products are taken
+- injectable
+- oral
+- tablets
+- liquid
+- pen
+- subcutaneous
+- intramuscular
+
+### 4. DOSAGE STRENGTH TAGS
+**Purpose**: Filter by product strength
+- 10mg
+- 20mg
+- 25mg
+- 30mg
+- 40mg
+- 50mg
+- 100mg
+- 200mg
+- 250mg
+- 300mg
+- 400mg
+- 1mg
+- 2mg
+- 2.5mg
+
+### 5. PURPOSE/GOAL TAGS
+**Purpose**: Help users find products for specific goals
+
+#### Muscle Building
+- bulking
+- mass-gain
+- muscle-building
+- strength
+- power
+- size
+- anabolic
+
+#### Cutting/Fat Loss
+- cutting
+- fat-loss
+- weight-loss
+- lean-muscle
+- definition
+- shredding
+- thermogenic
+- fat-burner
+
+#### Performance Enhancement
+- performance
+- endurance
+- recovery
+- athletic-performance
+- competition-prep
+
+#### Hormone Optimization
+- trt
+- testosterone-replacement
+- hormone-therapy
+- anti-aging
+- hormone-optimization
+
+### 6. CYCLE SUPPORT TAGS
+**Purpose**: Products for cycle management
+- pct
+- post-cycle-therapy
+- estrogen-control
+- aromatase-inhibitor
+- serm
+- ai
+- hormone-recovery
+- cycle-support
+- liver-support
+
+### 7. EXPERIENCE LEVEL TAGS
+**Purpose**: Help users choose appropriate products
+- beginner
+- intermediate
+- advanced
+- professional
+- mild
+- potent
+- hardcore
+
+### 8. SIDE EFFECT PROFILE TAGS
+**Purpose**: Help users understand product characteristics
+- mild-sides
+- low-sides
+- minimal-sides
+- harsh
+- liver-toxic
+- non-aromatizing
+- dht-derivative
+- 19-nor
+
+### 9. ESTER TAGS
+**Purpose**: Identify injection frequency requirements
+- propionate
+- acetate
+- enanthate
+- cypionate
+- decanoate
+- phenylpropionate
+- undecanoate
+- blend
+- fast-acting
+- long-acting
+
+### 10. SPECIALTY TAGS
+**Purpose**: Unique product characteristics
+- pharmaceutical
+- research
+- compound
+- peptide
+- blend
+- stack
+- combo
+- triple-x
+- rip-blend
+- mass-blend
+- test-blend
+- tren-blend
+
+### 11. MEDICAL/THERAPEUTIC TAGS
+**Purpose**: Medical applications and benefits
+- joint-support
+- anti-inflammatory
+- neuroprotective
+- cardioprotective
+- metabolic
+- insulin-sensitivity
+- appetite-stimulant
+- appetite-suppressant
+
+### 12. FORM FACTOR TAGS
+**Purpose**: Physical product characteristics
+- vial
+- ampoule
+- bottle
+- blister-pack
+- pen-injector
+- pre-filled
+- multi-dose
+- single-dose
+
+### 13. CONCENTRATION TAGS
+**Purpose**: Product concentration levels
+- low-concentration
+- standard-concentration
+- high-concentration
+- ultra-concentrated
+- pharmaceutical-grade
+- research-grade
+- ugl
+
+### 14. STACKING TAGS
+**Purpose**: Products commonly used together
+- test-base
+- kickstart
+- finisher
+- bridge
+- cruise
+- blast
+- stack-friendly
+- standalone
+
+### 15. SEASONAL/TIMING TAGS
+**Purpose**: When products are typically used
+- summer-cut
+- winter-bulk
+- pre-contest
+- off-season
+- maintenance
+- recomp
+- body-recomposition
+
+## SPECIAL CATEGORY TAGS
+
+### Weight Loss Specific
+- glp1-agonist
+- incretin-mimetic
+- diabetes-medication
+- weight-management
+- appetite-control
+- glucose-control
+
+### HGH Specific
+- anti-aging
+- recovery-enhancement
+- sleep-quality
+- skin-health
+- fat-metabolism
+- muscle-recovery
+
+### PCT Specific
+- testosterone-recovery
+- natural-production
+- hormone-balance
+- fertility-support
+- libido-enhancement
+
+## USAGE RECOMMENDATIONS
+
+### High-Priority Tags (Most Important for Search)
+1. Brand names (adelphi, rohm, etc.)
+2. Compound names (testosterone, anavar, etc.)
+3. Goals (bulking, cutting, trt)
+4. Administration (injectable, oral)
+5. Experience level (beginner, advanced)
+
+### Medium-Priority Tags (Good for Filtering)
+1. Dosage strengths
+2. Ester types
+3. Side effect profiles
+4. Cycle support categories
+
+### Low-Priority Tags (Nice to Have)
+1. Seasonal timing
+2. Stacking recommendations
+3. Form factors
+4. Concentration levels
+
+## IMPLEMENTATION NOTES
+
+### Tag Naming Conventions
+- Use lowercase with hyphens for multi-word tags
+- Keep tags concise but descriptive
+- Avoid special characters except hyphens
+- Use singular form when possible
+
+### Tag Relationships
+- Products can have multiple tags from different categories
+- Some tags are mutually exclusive (oral vs injectable)
+- Consider tag hierarchies for better organization
+
+### SEO Considerations
+- Include common search terms as tags
+- Use both scientific and common names
+- Include brand-specific terminology
+- Consider regional spelling variations (UK vs US)
+
+## TOTAL TAG COUNT
+- **Brand Tags**: 11
+- **Compound Tags**: 35+
+- **Administration Tags**: 7
+- **Dosage Tags**: 14
+- **Purpose Tags**: 20+
+- **Cycle Support Tags**: 8
+- **Experience Tags**: 7
+- **Side Effect Tags**: 8
+- **Ester Tags**: 11
+- **Specialty Tags**: 12
+- **Medical Tags**: 10
+- **Form Tags**: 8
+- **Concentration Tags**: 7
+- **Stacking Tags**: 8
+- **Seasonal Tags**: 7
+- **Special Category Tags**: 15+
+
+**ESTIMATED TOTAL**: 200+ comprehensive tags covering all aspects of the product catalog
+
+## NOTES
+- Tags should be applied strategically to each product based on its characteristics
+- Regular review and updates of tags based on customer search behavior
+- Consider implementing tag synonyms for better search coverage
+- Use analytics to identify most effective tags for conversion 

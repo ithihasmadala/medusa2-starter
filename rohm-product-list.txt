@@ -1,0 +1,113 @@
+# Rohm Labs Product List
+
+## CATEGORY STRUCTURE
+
+### Main Category: Rohm Labs
+- All products fall under the main "Rohm Labs" collection/category
+
+### Subcategories:
+
+#### 1. Rohm Orals
+**General oral steroids (excluding Anavar which has its own category)**
+- **Rohm Winstrol 10mg** - Stanozolol oral tablets for cutting and lean muscle gains
+- **Rohm Winstrol 50mg** - High-dose Stanozolol for advanced users seeking enhanced cutting effects
+- **Rohm Dianabol 10mg** - Methandrostenolone tablets for rapid muscle mass and strength gains
+- **Rohm Dianabol 50mg** - High-potency Dianabol for experienced users wanting maximum bulking effects
+- **Rohm Triple X Tabs 30mg** - Multi-compound oral blend for comprehensive performance enhancement
+- **Rohm Oxy 50mg** - Oxymetholone (Anadrol) for extreme mass and strength gains
+- **Rohm Turinabol 10mg** - Chlorodehydromethyltestosterone for lean gains without water retention
+- **Rohm Primo Tabs 10mg** - Oral Primobolan (Methenolone) for quality muscle gains and cutting
+- **Rohm Halotestin 10mg** - Fluoxymesterone for extreme strength and aggression enhancement
+- **Rohm Superdrol 50mg** - Methyldrostanolone for rapid lean muscle gains and strength
+
+#### 2. Rohm Anavar (Separate Category)
+**Anavar products only**
+- **Rohm Anavar 10mg** - Oxandrolone tablets for lean muscle gains and fat loss with minimal side effects
+- **Rohm Anavar 50mg** - High-dose Oxandrolone for advanced users seeking maximum cutting and strength benefits
+
+#### 3. Rohm Injectables
+**General injectable steroids (excluding Test products which have their own category)**
+- **Rohm Deca 300mg** - Nandrolone Decanoate for mass gains and joint support
+- **Rohm NPP 100mg** - Nandrolone Phenylpropionate for faster-acting mass gains with less water retention
+- **Rohm Boldenone 300mg** - Equipoise for lean muscle gains and increased appetite
+- **Rohm Test Deca 400mg** - Testosterone and Nandrolone blend for mass and strength gains
+- **Rohm Trenbolone Acetate 100mg** - Fast-acting Tren for extreme muscle hardness and fat loss
+- **Rohm Trenbolone Enanthate 200mg** - Long-acting Trenbolone for sustained muscle gains and cutting
+- **Rohm Tren Blend 200mg** - Multiple Trenbolone esters for comprehensive muscle enhancement
+- **Rohm Rip Blend 200mg** - Cutting blend combining multiple compounds for fat loss and muscle preservation
+- **Rohm Masteron Prop 100mg** - Drostanolone Propionate for muscle hardening and anti-estrogenic effects
+- **Rohm Masteron Enanthate 200mg** - Long-acting Masteron for sustained cutting and hardening effects
+- **Rohm Primobolan 100mg** - Injectable Methenolone for quality lean gains with minimal side effects
+- **Rohm Mass 400** - High-concentration mass-building blend for serious bulking cycles
+- **Rohm Parabolan 100mg** - Trenbolone Hexahydrobenzylcarbonate for premium muscle enhancement
+- **Rohm Methyl Tren 2mg** - Ultra-potent oral Trenbolone for extreme strength and hardness
+- **Rohm MENT 50mg** - Trestolone Acetate for powerful anabolic effects with unique properties
+
+#### 4. Rohm Test (New Subcategory)
+**All testosterone and TRT products**
+- **Rohm Test Propionate 100mg** - Fast-acting testosterone for frequent injections and quick results
+- **Rohm Test Cypionate 250mg** - Long-acting testosterone for sustained hormone replacement and muscle gains
+- **Rohm Test Enanthate 300mg** - Popular long-ester testosterone for consistent muscle building
+- **Rohm Sustanon 250mg** - Four-testosterone blend for sustained release and stable blood levels
+- **Rohm Test Blend 400** - High-concentration testosterone mix for advanced users
+- **Rohm TRT 250mg** - Testosterone replacement therapy formulation for hormone optimization
+
+#### 5. Rohm PCT (New Subcategory)
+**Post Cycle Therapy products**
+- **Rohm Nolvadex 20mg** - Tamoxifen for estrogen receptor blocking and testosterone recovery
+- **Rohm Clomid 50mg** - Clomiphene Citrate for natural testosterone production stimulation
+- **Rohm Proviron 25mg** - Mesterolone for anti-estrogenic effects and libido enhancement
+- **Rohm Arimidex 1mg** - Anastrozole aromatase inhibitor for estrogen control during cycles
+- **Rohm Aromasin 25mg** - Exemestane for irreversible aromatase inhibition and estrogen management
+- **Rohm Letrozole 2.5mg** - Powerful aromatase inhibitor for severe estrogen suppression
+- **Rohm PCT 40mg** - Comprehensive post-cycle therapy blend for hormone recovery
+
+#### 6. Rohm Fat Burners (New Subcategory)
+**Fat burning and cutting products**
+- **Rohm 4 Burn Tabs** - Multi-ingredient fat burning tablets for enhanced thermogenesis
+- **Rohm Clenbuterol** - Beta-2 agonist for fat loss and muscle preservation during cutting
+- **Rohm T3** - Liothyronine for thyroid hormone optimization and metabolic enhancement
+- **Rohm T4** - Levothyroxine for thyroid support and metabolic regulation
+- **Rohm T5** - Advanced thyroid hormone blend for maximum metabolic boost
+- **Rohm Liquid Burn** - Liquid fat burner formulation for rapid absorption and effects
+- **Rohm Liquid Clen** - Liquid Clenbuterol for precise dosing and faster onset
+- **Rohm Yohimbine** - Alpha-2 antagonist for stubborn fat loss and enhanced fat oxidation
+
+## CATEGORY HIERARCHY SUMMARY
+
+```
+Rohm Labs (Main Category)
+├── Rohm Orals (10 products) - Oral anabolic steroids for various goals
+├── Rohm Anavar (2 products) - Premium Oxandrolone for cutting and strength
+├── Rohm Injectables (15 products) - Injectable steroids for mass and cutting
+├── Rohm Test (6 products) - Testosterone products for TRT and muscle building
+├── Rohm PCT (7 products) - Post-cycle therapy for hormone recovery
+└── Rohm Fat Burners (8 products) - Cutting agents for fat loss and metabolism
+```
+
+## TOTAL PRODUCT COUNT
+- **Orals**: 10 products (Strength and mass building oral steroids)
+- **Anavar**: 2 products (Premium cutting and strength enhancement)
+- **Injectables**: 15 products (Advanced injectable compounds for serious users)
+- **Test Products**: 6 products (Testosterone for TRT and performance)
+- **PCT Products**: 7 products (Essential post-cycle recovery support)
+- **Fat Burners**: 8 products (Comprehensive cutting and fat loss solutions)
+- **TOTAL**: 48 Rohm products across 6 specialized subcategories
+
+## PRODUCT DESCRIPTIONS SUMMARY
+
+### Key Benefits by Category:
+- **Orals**: Convenient tablet form, rapid onset, ideal for kickstarting cycles
+- **Anavar**: Mild side effects, excellent for beginners and cutting phases
+- **Injectables**: Longer half-lives, higher bioavailability, professional-grade results
+- **Testosterone**: Foundation hormone for all cycles, essential for TRT
+- **PCT**: Critical for hormone recovery and maintaining gains post-cycle
+- **Fat Burners**: Advanced thermogenics for accelerated fat loss and cutting
+
+## NOTES
+- All products feature detailed descriptions highlighting specific benefits and use cases
+- Anavar products are separated into their own category due to popularity and unique properties
+- Test/TRT products are categorized separately for easy identification by TRT users
+- PCT and Fat Burners represent essential support categories for comprehensive cycles
+- All products maintain the "Rohm" brand prefix for consistency and quality assurance
+- Products are organized by function/type with detailed descriptions for informed selection 

@@ -1,0 +1,113 @@
+# Adelphi Research Product List
+
+## CATEGORY STRUCTURE
+
+### Main Category: Adelphi Research
+- All products fall under the main "Adelphi Research" collection/category
+
+### Subcategories:
+
+#### 1. Adelphi Orals
+**General oral steroids (excluding Anavar which has its own category)**
+- **Adelphi Winstrol 10mg** - Stanozolol oral tablets for cutting and lean muscle gains
+- **Adelphi Winstrol 50mg** - High-dose Stanozolol for advanced users seeking enhanced cutting effects
+- **Adelphi Dianabol 10mg** - Methandrostenolone tablets for rapid muscle mass and strength gains
+- **Adelphi Dianabol 50mg** - High-potency Dianabol for experienced users wanting maximum bulking effects
+- **Adelphi Triple X Tabs 30mg** - Multi-compound oral blend for comprehensive performance enhancement
+- **Adelphi Oxy 50mg** - Oxymetholone (Anadrol) for extreme mass and strength gains
+- **Adelphi Turinabol 10mg** - Chlorodehydromethyltestosterone for lean gains without water retention
+- **Adelphi Primo Tabs 10mg** - Oral Primobolan (Methenolone) for quality muscle gains and cutting
+- **Adelphi Halotestin 10mg** - Fluoxymesterone for extreme strength and aggression enhancement
+- **Adelphi Superdrol 50mg** - Methyldrostanolone for rapid lean muscle gains and strength
+
+#### 2. Adelphi Anavar (Separate Category)
+**Anavar products only**
+- **Adelphi Anavar 10mg** - Oxandrolone tablets for lean muscle gains and fat loss with minimal side effects
+- **Adelphi Anavar 50mg** - High-dose Oxandrolone for advanced users seeking maximum cutting and strength benefits
+
+#### 3. Adelphi Injectables
+**General injectable steroids (excluding Test products which have their own category)**
+- **Adelphi Deca 300mg** - Nandrolone Decanoate for mass gains and joint support
+- **Adelphi NPP 100mg** - Nandrolone Phenylpropionate for faster-acting mass gains with less water retention
+- **Adelphi Boldenone 300mg** - Equipoise for lean muscle gains and increased appetite
+- **Adelphi Test Deca 400mg** - Testosterone and Nandrolone blend for mass and strength gains
+- **Adelphi Trenbolone Acetate 100mg** - Fast-acting Tren for extreme muscle hardness and fat loss
+- **Adelphi Trenbolone Enanthate 200mg** - Long-acting Trenbolone for sustained muscle gains and cutting
+- **Adelphi Tren Blend 200mg** - Multiple Trenbolone esters for comprehensive muscle enhancement
+- **Adelphi Rip Blend 200mg** - Cutting blend combining multiple compounds for fat loss and muscle preservation
+- **Adelphi Masteron Prop 100mg** - Drostanolone Propionate for muscle hardening and anti-estrogenic effects
+- **Adelphi Masteron Enanthate 200mg** - Long-acting Masteron for sustained cutting and hardening effects
+- **Adelphi Primobolan 100mg** - Injectable Methenolone for quality lean gains with minimal side effects
+- **Adelphi Mass 400** - High-concentration mass-building blend for serious bulking cycles
+- **Adelphi Parabolan 100mg** - Trenbolone Hexahydrobenzylcarbonate for premium muscle enhancement
+- **Adelphi Methyl Tren 2mg** - Ultra-potent oral Trenbolone for extreme strength and hardness
+- **Adelphi MENT 50mg** - Trestolone Acetate for powerful anabolic effects with unique properties
+
+#### 4. Adelphi Test (New Subcategory)
+**All testosterone and TRT products**
+- **Adelphi Test Propionate 100mg** - Fast-acting testosterone for frequent injections and quick results
+- **Adelphi Test Cypionate 250mg** - Long-acting testosterone for sustained hormone replacement and muscle gains
+- **Adelphi Test Enanthate 300mg** - Popular long-ester testosterone for consistent muscle building
+- **Adelphi Sustanon 250mg** - Four-testosterone blend for sustained release and stable blood levels
+- **Adelphi Test Blend 400** - High-concentration testosterone mix for advanced users
+- **Adelphi TRT 250mg** - Testosterone replacement therapy formulation for hormone optimization
+
+#### 5. Adelphi PCT (New Subcategory)
+**Post Cycle Therapy products**
+- **Adelphi Nolvadex 20mg** - Tamoxifen for estrogen receptor blocking and testosterone recovery
+- **Adelphi Clomid 50mg** - Clomiphene Citrate for natural testosterone production stimulation
+- **Adelphi Proviron 25mg** - Mesterolone for anti-estrogenic effects and libido enhancement
+- **Adelphi Arimidex 1mg** - Anastrozole aromatase inhibitor for estrogen control during cycles
+- **Adelphi Aromasin 25mg** - Exemestane for irreversible aromatase inhibition and estrogen management
+- **Adelphi Letrozole 2.5mg** - Powerful aromatase inhibitor for severe estrogen suppression
+- **Adelphi PCT 40mg** - Comprehensive post-cycle therapy blend for hormone recovery
+
+#### 6. Adelphi Fat Burners (New Subcategory)
+**Fat burning and cutting products**
+- **Adelphi 4 Burn Tabs** - Multi-ingredient fat burning tablets for enhanced thermogenesis
+- **Adelphi Clenbuterol** - Beta-2 agonist for fat loss and muscle preservation during cutting
+- **Adelphi T3** - Liothyronine for thyroid hormone optimization and metabolic enhancement
+- **Adelphi T4** - Levothyroxine for thyroid support and metabolic regulation
+- **Adelphi T5** - Advanced thyroid hormone blend for maximum metabolic boost
+- **Adelphi Liquid Burn** - Liquid fat burner formulation for rapid absorption and effects
+- **Adelphi Liquid Clen** - Liquid Clenbuterol for precise dosing and faster onset
+- **Adelphi Yohimbine** - Alpha-2 antagonist for stubborn fat loss and enhanced fat oxidation
+
+## CATEGORY HIERARCHY SUMMARY
+
+```
+Adelphi Research (Main Category)
+├── Adelphi Orals (10 products) - Oral anabolic steroids for various goals
+├── Adelphi Anavar (2 products) - Premium Oxandrolone for cutting and strength
+├── Adelphi Injectables (15 products) - Injectable steroids for mass and cutting
+├── Adelphi Test (6 products) - Testosterone products for TRT and muscle building
+├── Adelphi PCT (7 products) - Post-cycle therapy for hormone recovery
+└── Adelphi Fat Burners (8 products) - Cutting agents for fat loss and metabolism
+```
+
+## TOTAL PRODUCT COUNT
+- **Orals**: 10 products (Strength and mass building oral steroids)
+- **Anavar**: 2 products (Premium cutting and strength enhancement)
+- **Injectables**: 15 products (Advanced injectable compounds for serious users)
+- **Test Products**: 6 products (Testosterone for TRT and performance)
+- **PCT Products**: 7 products (Essential post-cycle recovery support)
+- **Fat Burners**: 8 products (Comprehensive cutting and fat loss solutions)
+- **TOTAL**: 48 Adelphi products across 6 specialized subcategories
+
+## PRODUCT DESCRIPTIONS SUMMARY
+
+### Key Benefits by Category:
+- **Orals**: Convenient tablet form, rapid onset, ideal for kickstarting cycles
+- **Anavar**: Mild side effects, excellent for beginners and cutting phases
+- **Injectables**: Longer half-lives, higher bioavailability, professional-grade results
+- **Testosterone**: Foundation hormone for all cycles, essential for TRT
+- **PCT**: Critical for hormone recovery and maintaining gains post-cycle
+- **Fat Burners**: Advanced thermogenics for accelerated fat loss and cutting
+
+## NOTES
+- All products feature detailed descriptions highlighting specific benefits and use cases
+- Anavar products are separated into their own category due to popularity and unique properties
+- Test/TRT products are categorized separately for easy identification by TRT users
+- PCT and Fat Burners represent essential support categories for comprehensive cycles
+- All products maintain the "Adelphi" brand prefix for consistency and quality assurance
+- Products are organized by function/type with detailed descriptions for informed selection 

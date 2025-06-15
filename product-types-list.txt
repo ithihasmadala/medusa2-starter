@@ -1,0 +1,169 @@
+# Product Types List
+
+## OVERVIEW
+Product types are used to categorize products by their function, form, and characteristics. Based on our category structure and product lists, here are the recommended product types:
+
+## PRODUCT TYPES
+
+### 1. Weight Loss Compounds
+**Handle**: `weight-loss-compounds`
+**Description**: Advanced weight loss peptides and compounds
+**Products Include**:
+- Tirzepatide products (20mg, 40mg pens)
+- Retatrutide products (price, pen uk)
+- Pharma weight loss products
+
+### 2. Injectable Steroids
+**Handle**: `injectable-steroids`
+**Description**: Intramuscular injectable anabolic steroids
+**Products Include**:
+- All testosterone products (Test Prop, Cyp, Enanthate, Sustanon, TRT)
+- Trenbolone products (Acetate, Enanthate, blends)
+- Nandrolone products (Deca, NPP)
+- Masteron products (Prop, Enanthate)
+- Boldenone, Primobolan
+- Steroid blends (Test Deca, Rip Blend, Mass 400)
+- Specialty injectables (Parabolan, MENT, Methyl Tren)
+
+### 3. Oral Steroids
+**Handle**: `oral-steroids`
+**Description**: Oral anabolic steroids in tablet/capsule form
+**Products Include**:
+- Anavar (10mg, 50mg)
+- Winstrol (10mg, 50mg)
+- Dianabol (10mg, 50mg)
+- Turinabol, Superdrol
+- Halotestin, Primo Tabs
+- Oxy products
+- Triple X Tabs
+
+### 4. Testosterone Products
+**Handle**: `testosterone-products`
+**Description**: All testosterone-based products including TRT
+**Products Include**:
+- Test Propionate, Cypionate, Enanthate
+- Sustanon (testosterone blend)
+- Test blends (Test Blend 400)
+- TRT formulations
+- Testosterone-containing blends
+
+### 5. Post Cycle Therapy (PCT)
+**Handle**: `post-cycle-therapy`
+**Description**: Products used for post cycle therapy and hormone regulation
+**Products Include**:
+- SERMs (Nolvadex, Clomid)
+- Aromatase Inhibitors (Arimidex, Aromasin, Letrozole)
+- Ancillary compounds (Proviron)
+- PCT blends and formulations
+
+### 6. Fat Burners
+**Handle**: `fat-burners`
+**Description**: Thermogenic and fat burning compounds
+**Products Include**:
+- Clenbuterol products
+- T3, T4, T5 thyroid hormones
+- Yohimbine products
+- Fat burning blends (4 Burn Tabs, Liquid Burn)
+- Liquid formulations (Liquid Clen)
+
+### 7. Growth Hormone (HGH)
+**Handle**: `growth-hormone`
+**Description**: Human growth hormone and related products
+**Products Include**:
+- Pfizer Genotropin pen
+- Genxtropin HGH
+- Adelphi HGH
+- Other HGH formulations
+
+### 8. Pharmaceutical Grade
+**Handle**: `pharmaceutical-grade`
+**Description**: Pharmaceutical grade products and medications
+**Products Include**:
+- Pharma Test products
+- Pharma PCT products
+- Pfizer products
+- Other pharmaceutical grade items
+
+### 9. Peptides
+**Handle**: `peptides`
+**Description**: Peptide compounds and research chemicals
+**Products Include**:
+- Tirzepatide compounds
+- Retatrutide peptides
+- Other research peptides
+
+### 10. Anavar Specific
+**Handle**: `anavar-products`
+**Description**: Oxandrolone (Anavar) products specifically
+**Products Include**:
+- All Anavar formulations (10mg, 50mg)
+- Different brand Anavar products
+- Anavar-only cycles products
+
+## PRODUCT TYPE HIERARCHY
+
+### By Function:
+```
+Performance Enhancement
+├── Injectable Steroids
+├── Oral Steroids
+├── Testosterone Products
+└── Anavar Specific
+
+Health & Recovery
+├── Post Cycle Therapy (PCT)
+├── Growth Hormone (HGH)
+└── Pharmaceutical Grade
+
+Body Composition
+├── Fat Burners
+├── Weight Loss Compounds
+└── Peptides
+```
+
+### By Administration Method:
+```
+Injectable Products
+├── Injectable Steroids
+├── Growth Hormone (HGH)
+└── Weight Loss Compounds (pens)
+
+Oral Products
+├── Oral Steroids
+├── Post Cycle Therapy (PCT)
+└── Fat Burners (tablets)
+
+Liquid Products
+├── Fat Burners (liquid formulations)
+└── Research compounds
+```
+
+## USAGE GUIDELINES
+
+### Primary Product Types (Most Important):
+1. **Injectable Steroids** - Covers most injectable products
+2. **Oral Steroids** - Covers most oral products
+3. **Post Cycle Therapy** - Essential for PCT products
+4. **Fat Burners** - For cutting/weight loss
+5. **Growth Hormone** - For HGH products
+
+### Secondary Product Types (Specific Categories):
+6. **Testosterone Products** - Subset of injectables but important category
+7. **Weight Loss Compounds** - Modern peptide-based products
+8. **Pharmaceutical Grade** - Quality designation
+9. **Peptides** - Research compounds
+10. **Anavar Specific** - Popular standalone category
+
+## IMPLEMENTATION NOTES
+
+- Product types can overlap (e.g., Testosterone can be both "Injectable Steroids" and "Testosterone Products")
+- Use primary product type for main categorization
+- Secondary types can be used for filtering and search
+- Consider creating product type hierarchies in the database
+- Some products may belong to multiple product types
+
+## TOTAL COUNT
+- **10 distinct product types** covering all product categories
+- **Hierarchical structure** for better organization
+- **Flexible assignment** allowing multiple types per product
+- **Scalable system** for adding new product types 
