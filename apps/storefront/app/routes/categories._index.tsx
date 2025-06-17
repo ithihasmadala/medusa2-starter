@@ -30,55 +30,50 @@ export default function CategoriesIndexRoute() {
         Shop by Category
       </PageHeading>
 
-      <div className="mt-12 space-y-12">
+      <div className="mt-12 w-full">
         {parentCategories.map((parent) => (
-          <div key={parent.id}>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">{parent.name}</h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {/* Render parent as a card too */}
-              <NavLink
-                key={parent.id}
-                to={`/categories/${parent.handle}`}
-                className="group relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow"
-                prefetch="viewport"
-              >
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
-                    {parent.name}
-                  </h3>
-                  {parent.description && (
-                    <p className="mt-2 text-sm text-gray-600 line-clamp-2">{parent.description}</p>
-                  )}
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="text-sm font-medium text-primary-600 group-hover:text-primary-700">Explore →</span>
-                  </div>
-                </div>
-              </NavLink>
-              {/* Render subcategories as indented cards */}
-              {parent.category_children?.map((child) => (
-                <NavLink
-                  key={child.id}
-                  to={`/categories/${child.handle}`}
-                  className="group relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow ml-4"
-                  prefetch="viewport"
-                >
-                  <div className="p-6">
-                    <h3 className="text-base font-medium text-gray-800 group-hover:text-primary-600 transition-colors">
-                      {child.name}
-                    </h3>
-                    {child.description && (
-                      <p className="mt-2 text-xs text-gray-600 line-clamp-2">{child.description}</p>
-                    )}
-                    <div className="mt-4 flex items-center justify-between">
-                      <span className="text-xs font-medium text-primary-600 group-hover:text-primary-700">
-                        Explore →
-                      </span>
+          <section key={parent.id} className="mb-12">
+            <NavLink
+              to={`/categories/${parent.handle}`}
+              className={({ isActive }) =>
+                [
+                  'text-2xl font-bold mb-4 inline-block transition-colors',
+                  isActive ? 'text-primary' : 'text-gray-900 hover:text-primary cursor-pointer',
+                ].join(' ')
+              }
+              prefetch="viewport"
+            >
+              {parent.name}
+            </NavLink>
+            {parent.category_children?.length > 0 ? (
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full">
+                {parent.category_children.map((child) => (
+                  <NavLink
+                    key={child.id}
+                    to={`/categories/${child.handle}`}
+                    className="group relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow w-full"
+                    prefetch="viewport"
+                  >
+                    <div className="p-6">
+                      <h3 className="text-base font-medium text-gray-800 group-hover:text-primary-600 transition-colors">
+                        {child.name}
+                      </h3>
+                      {child.description && (
+                        <p className="mt-2 text-xs text-gray-600 line-clamp-2">{child.description}</p>
+                      )}
+                      <div className="mt-4 flex items-center justify-between">
+                        <span className="text-xs font-medium text-primary-600 group-hover:text-primary-700">
+                          Explore →
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </NavLink>
-              ))}
-            </div>
-          </div>
+                  </NavLink>
+                ))}
+              </div>
+            ) : (
+              <div className="text-gray-500 italic">No subcategories available.</div>
+            )}
+          </section>
         ))}
       </div>
 

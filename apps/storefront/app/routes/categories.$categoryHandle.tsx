@@ -49,6 +49,35 @@ function CategoryCarousel({ categories, currentCategoryHandle }: { categories: a
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
+  // Find current category
+  const currentCategory = categories.find((c) => c.handle === currentCategoryHandle);
+  const parentCategories = categories.filter((cat) => !cat.parent_category_id);
+
+  // Helper to get subcategories for a parent
+  const getSubcategories = (parentId: string) => categories.filter((cat) => cat.parent_category_id === parentId);
+
+  // Build the carousel items
+  let carouselItems: { category: any; isSub: boolean }[] = [];
+
+  if (currentCategory?.parent_category_id) {
+    // On a subcategory: show parent, all siblings, highlight current
+    const parent = categories.find((cat) => cat.id === currentCategory.parent_category_id);
+    const siblings = getSubcategories(parent.id);
+    carouselItems = [{ category: parent, isSub: false }, ...siblings.map((cat) => ({ category: cat, isSub: true }))];
+  } else if (currentCategory) {
+    // On a parent: show all parents, and if selected, show its subcategories after it
+    parentCategories.forEach((parent) => {
+      carouselItems.push({ category: parent, isSub: false });
+      if (parent.id === currentCategory.id) {
+        const subs = getSubcategories(parent.id);
+        carouselItems.push(...subs.map((cat) => ({ category: cat, isSub: true })));
+      }
+    });
+  } else {
+    // Fallback: flat list
+    carouselItems = parentCategories.map((cat) => ({ category: cat, isSub: false }));
+  }
+
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -138,17 +167,24 @@ function CategoryCarousel({ categories, currentCategoryHandle }: { categories: a
           }}
           onScroll={checkScrollButtons}
         >
-          {categories.map((category) => (
+          {carouselItems.map(({ category, isSub }) => (
             <NavLink
               to={`/categories/${category.handle}`}
               key={category.id}
               prefetch="viewport"
               className={({ isActive }) =>
-                clsx('h-full p-3 md:p-4 whitespace-nowrap flex-shrink-0 transition-all duration-200', {
-                  'font-bold border-b-2 border-primary text-primary': isActive,
-                  'hover:text-primary/80': !isActive,
-                })
+                clsx(
+                  'h-full flex-shrink-0 transition-all duration-200',
+                  isSub
+                    ? 'p-2 md:p-2.5 text-base md:text-lg text-gray-600 ml-2 pl-4 border-l border-primary/30'
+                    : 'p-3 md:p-4 whitespace-nowrap',
+                  {
+                    'font-bold border-b-2 border-primary text-primary': isActive,
+                    'hover:text-primary/80': !isActive,
+                  },
+                )
               }
+              aria-current={category.handle === currentCategoryHandle ? 'page' : undefined}
             >
               {category.name}
             </NavLink>
@@ -180,27 +216,52 @@ export default function ProductCategoryRoute() {
 
   if (!data) return null;
 
-  const { products, count, limit, offset, categories } = data;
+  const { products, count, limit, offset, categories, category } = data;
+
+  // Only parent categories in the carousel
+  const parentCategories = categories.filter((cat) => !cat.parent_category_id);
+  const subcategories = categories.filter((cat) => cat.parent_category_id === category.id);
 
   return (
     <Container className="pb-16">
       <PageHeading className="w-full text-center text-5xl xs:text-6xl md:text-8xl font-ballet mt-24 font-normal lg:font-normal">
-        {data.category.name}
+        {category.name}
       </PageHeading>
 
-      {categories.length > 1 && (
+      {parentCategories.length > 1 && (
         <div className="w-full">
-          <CategoryCarousel categories={categories} currentCategoryHandle={data.category.handle} />
+          <CategoryCarousel categories={parentCategories} currentCategoryHandle={category.handle} />
         </div>
       )}
 
       <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex-1">
-          <ProductListWithPagination
-            products={products}
-            paginationConfig={{ count, offset, limit }}
-            context={`categories/${data.category.handle}`}
-          />
+          {subcategories.length > 0 ? (
+            <div className="space-y-12">
+              {subcategories.map((subcat) => {
+                // Find products for this subcategory
+                const subcatProducts = products.filter((p) => p.categories?.some((c) => c.id === subcat.id));
+                return (
+                  <div key={subcat.id}>
+                    <h2 className="text-xl font-semibold mb-4">{subcat.name}</h2>
+                    {subcatProducts.length > 0 ? (
+                      <ProductListWithPagination products={subcatProducts} context={`categories/${subcat.handle}`} />
+                    ) : (
+                      <div className="text-gray-500 italic">No products available.</div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ) : products.length > 0 ? (
+            <ProductListWithPagination
+              products={products}
+              paginationConfig={{ count, offset, limit }}
+              context={`categories/${category.handle}`}
+            />
+          ) : (
+            <div className="text-gray-500 italic">No products available.</div>
+          )}
         </div>
       </div>
     </Container>
