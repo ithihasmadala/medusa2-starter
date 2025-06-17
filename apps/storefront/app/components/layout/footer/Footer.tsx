@@ -41,6 +41,8 @@ export const Footer = () => {
     );
   };
 
+  const parentCategories = categories.filter((cat) => !cat.parent_category_id);
+
   return (
     <footer className="bg-accent-50 min-h-[140px] py-8 text-white">
       <Container>
@@ -78,11 +80,11 @@ export const Footer = () => {
             </URLAwareNavLink>
 
             {/* Categories Subsection */}
-            {categories.length > 0 && (
+            {parentCategories.length > 0 && (
               <div className="mt-4">
                 <h6 className="font-semibold mb-2 text-sm text-slate-300">By Category</h6>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
-                  {categories.slice(0, 6).map((category) => (
+                  {parentCategories.slice(0, 6).map((category) => (
                     <URLAwareNavLink
                       key={category.id}
                       url={`/categories/${category.handle}`}
@@ -93,41 +95,13 @@ export const Footer = () => {
                     </URLAwareNavLink>
                   ))}
                 </div>
-                {categories.length > 6 && (
+                {parentCategories.length > 6 && (
                   <URLAwareNavLink
                     url="/categories"
                     className="hover:text-slate-200 block pt-2 text-sm font-medium pl-2"
                     prefetch="viewport"
                   >
                     View All Categories →
-                  </URLAwareNavLink>
-                )}
-              </div>
-            )}
-
-            {/* Collections Subsection */}
-            {collections.length > 0 && (
-              <div className="mt-4">
-                <h6 className="font-semibold mb-2 text-sm text-slate-300">By Collection</h6>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
-                  {collections.slice(0, 6).map((collection) => (
-                    <URLAwareNavLink
-                      key={collection.id}
-                      url={`/collections/${collection.handle}`}
-                      className="hover:text-slate-200 block pb-1 text-sm pl-2"
-                      prefetch="viewport"
-                    >
-                      {collection.title}
-                    </URLAwareNavLink>
-                  ))}
-                </div>
-                {collections.length > 6 && (
-                  <URLAwareNavLink
-                    url="/collections"
-                    className="hover:text-slate-200 block pt-2 text-sm font-medium pl-2"
-                    prefetch="viewport"
-                  >
-                    View All Collections →
                   </URLAwareNavLink>
                 )}
               </div>
