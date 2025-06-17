@@ -42,6 +42,9 @@ export const CategoryDropdown: FC<CategoryDropdownProps> = ({ categories }) => {
 
   if (!categories?.length) return null;
 
+  // Helper to get parent categories and their children
+  const parentCategories = categories.filter((cat) => !cat.parent_category_id);
+
   return (
     <div className="relative inline-block text-left" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <button
@@ -65,15 +68,30 @@ export const CategoryDropdown: FC<CategoryDropdownProps> = ({ categories }) => {
           onMouseLeave={handleMouseLeave}
         >
           <div className="py-1 max-h-80 overflow-y-auto">
-            {categories.map((category) => (
-              <URLAwareNavLink
-                key={category.id}
-                url={`/categories/${category.handle}`}
-                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900"
-                prefetch="viewport"
-              >
-                {category.name}
-              </URLAwareNavLink>
+            {parentCategories.map((parent) => (
+              <div key={parent.id}>
+                <URLAwareNavLink
+                  url={`/categories/${parent.handle}`}
+                  className="text-gray-700 block px-4 py-2 text-sm font-semibold hover:bg-gray-100 hover:text-gray-900"
+                  prefetch="viewport"
+                >
+                  {parent.name}
+                </URLAwareNavLink>
+                {parent.category_children?.length > 0 && (
+                  <div className="pl-6">
+                    {parent.category_children.map((child) => (
+                      <URLAwareNavLink
+                        key={child.id}
+                        url={`/categories/${child.handle}`}
+                        className="text-gray-700 block px-4 py-1 text-xs hover:bg-gray-100 hover:text-gray-900"
+                        prefetch="viewport"
+                      >
+                        {child.name}
+                      </URLAwareNavLink>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>

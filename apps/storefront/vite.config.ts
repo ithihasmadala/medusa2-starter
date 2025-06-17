@@ -13,6 +13,7 @@ export default defineConfig({
       '.localhost',
       '.trycloudflare.com', // Allow all Cloudflare tunnel domains
       'crash-bryan-examinations-sic.trycloudflare.com', // Your specific tunnel
+      'medusastore.loca.lt',
     ],
     warmup: {
       clientFiles: ['./app/entry.client.tsx', './app/root.tsx', './app/routes/**/*'],
