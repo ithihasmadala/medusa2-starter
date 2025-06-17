@@ -32,6 +32,8 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
     offset,
   });
 
+  console.log('products', products);
+
   return {
     products,
     count,

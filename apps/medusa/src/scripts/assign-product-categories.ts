@@ -1,54 +1,44 @@
 import type { ExecArgs } from '@medusajs/types';
-import { Modules } from '@medusajs/framework/utils';
-
-interface CategoryMapping {
-  collectionHandle: string;
-  categoryHandle: string;
-}
+import { updateProductsWorkflow } from '@medusajs/core-flows';
 
 async function assignProductCategories({ container }: ExecArgs) {
   console.log('🏷️ Starting to assign categories to products...');
 
   try {
-    // Get the product module service
-    const productModuleService = container.resolve(Modules.PRODUCT);
+    // Get the product service
+    const productService = container.resolve('product');
 
-    // Define collection to category mappings based on existing categories
-    const categoryMappings: CategoryMapping[] = [
-      // Adelphi Research products - map to existing categories
-      { collectionHandle: 'adelphi-orals', categoryHandle: 'adelphi-orals' },
-      { collectionHandle: 'adelphi-anavar', categoryHandle: 'adelphi-anavar' },
-      { collectionHandle: 'adelphi-test', categoryHandle: 'adelphi-test' },
-      { collectionHandle: 'adelphi-injectables', categoryHandle: 'adelphi-injectables' },
-      // These don't exist in DB, so will fall back to parent category
-      { collectionHandle: 'adelphi-pct', categoryHandle: 'adelphi-research' },
-      { collectionHandle: 'adelphi-fat-burners', categoryHandle: 'adelphi-research' },
-
-      // Rohm Labs products - map to existing categories
-      { collectionHandle: 'rohm-orals', categoryHandle: 'rohm-orals' },
-      { collectionHandle: 'rohm-anavar', categoryHandle: 'rohm-anavar' },
-      { collectionHandle: 'rohm-test', categoryHandle: 'rohm-test' },
-      { collectionHandle: 'rohm-injectables', categoryHandle: 'rohm-injectables' },
-      // These don't exist in DB, so will fall back to parent category
-      { collectionHandle: 'rohm-pct', categoryHandle: 'rohm-labs' },
-      { collectionHandle: 'rohm-fat-burners', categoryHandle: 'rohm-labs' },
-    ];
-
-    // Get existing categories and build a map
+    // Get existing categories and collections
     console.log('📂 Loading existing categories...');
-    const existingCategories = await productModuleService.listProductCategories({});
+    const existingCategories = await productService.listProductCategories({});
+    console.log(`Found ${existingCategories.length} categories`);
+
+    const existingCollections = await productService.listProductCollections({});
+    console.log(`Found ${existingCollections.length} collections`);
+
+    // Build maps for easier lookup
     const categoryMap = new Map<string, string>();
+    const categoryByNameMap = new Map<string, string>();
 
     for (const category of existingCategories) {
-      categoryMap.set(category.handle, category.id);
-      console.log(`📋 Found existing category: ${category.name} (${category.handle})`);
+      if (category.handle) {
+        categoryMap.set(category.handle, category.id);
+      }
+      if (category.name) {
+        categoryByNameMap.set(category.name.toLowerCase(), category.id);
+      }
     }
 
-    // Get all products
+    const collectionMap = new Map<string, string>();
+    for (const collection of existingCollections) {
+      if (collection.handle) {
+        collectionMap.set(collection.handle, collection.id);
+      }
+    }
+
+    // Get all products (without relations first, then fetch related data separately)
     console.log('📦 Fetching all products...');
-    const products = await productModuleService.listProducts({
-      relations: ['categories', 'collection'],
-    });
+    const products = await productService.listProducts({});
 
     console.log(`Found ${products.length} products to categorize`);
 
@@ -58,69 +48,99 @@ async function assignProductCategories({ container }: ExecArgs) {
     // Process each product
     for (const product of products) {
       try {
+        // Get product details including categories, collection, and tags
+        const productDetails = await productService.retrieveProduct(product.id, {
+          relations: ['categories', 'collection', 'tags'],
+        });
+
         // Skip if product already has categories
-        if (product.categories && product.categories.length > 0) {
-          console.log(`⏭️ Product "${product.title}" already has categories, skipping`);
+        if (productDetails.categories && productDetails.categories.length > 0) {
+          console.log(`⏭️ Product "${productDetails.title}" already has categories, skipping`);
           skippedCount++;
           continue;
         }
 
         let targetCategoryId: string | null = null;
 
-        // Find appropriate category based on collection
-        if (product.collection?.handle) {
-          const mapping = categoryMappings.find((m) => m.collectionHandle === product.collection.handle);
-          if (mapping && categoryMap.has(mapping.categoryHandle)) {
-            targetCategoryId = categoryMap.get(mapping.categoryHandle)!;
-            console.log(`🎯 Mapping collection "${product.collection.handle}" to category "${mapping.categoryHandle}"`);
-          }
-        }
+        // First, try to categorize based on collection
+        if (productDetails.collection?.handle) {
+          console.log(`🔍 Product "${productDetails.title}" has collection: ${productDetails.collection.handle}`);
 
-        // Fallback: try to determine category from product tags or type
-        if (!targetCategoryId && product.tags) {
-          const tags = product.tags.map((tag) => tag.value?.toLowerCase() || '');
+          // Map collection to category based on naming patterns
+          const collectionHandle = productDetails.collection.handle;
 
-          // Check for brand-specific tags and existing categories
-          if (tags.includes('adelphi')) {
-            if (tags.includes('oxandrolone') || tags.includes('anavar')) {
-              targetCategoryId = categoryMap.get('adelphi-anavar');
-            } else if (tags.includes('oral') || tags.includes('tablets')) {
-              targetCategoryId = categoryMap.get('adelphi-orals');
-            } else if (tags.includes('injectable') || tags.includes('intramuscular')) {
-              targetCategoryId = categoryMap.get('adelphi-injectables');
-            } else if (tags.includes('testosterone') || tags.includes('trt')) {
-              targetCategoryId = categoryMap.get('adelphi-test');
-            } else {
-              // Default to Adelphi Research parent category
-              targetCategoryId = categoryMap.get('adelphi-research');
-            }
-          } else if (tags.includes('rohm')) {
-            if (tags.includes('oxandrolone') || tags.includes('anavar')) {
-              targetCategoryId = categoryMap.get('rohm-anavar');
-            } else if (tags.includes('oral') || tags.includes('tablets')) {
-              targetCategoryId = categoryMap.get('rohm-orals');
-            } else if (tags.includes('injectable') || tags.includes('intramuscular')) {
-              targetCategoryId = categoryMap.get('rohm-injectables');
-            } else if (tags.includes('testosterone') || tags.includes('trt')) {
-              targetCategoryId = categoryMap.get('rohm-test');
-            } else {
-              // Default to Rohm Labs parent category
-              targetCategoryId = categoryMap.get('rohm-labs');
+          // Look for direct category match with collection handle
+          if (categoryMap.has(collectionHandle)) {
+            targetCategoryId = categoryMap.get(collectionHandle)!;
+            console.log(`✅ Direct match: ${collectionHandle} -> category`);
+          } else {
+            // Try to match by collection name pattern
+            if (collectionHandle.includes('adelphi')) {
+              // Look for any Adelphi category
+              const adelphiCategory = [...categoryByNameMap.keys()].find((name) => name.includes('adelphi'));
+              if (adelphiCategory) {
+                targetCategoryId = categoryByNameMap.get(adelphiCategory)!;
+                console.log(`🎯 Mapped Adelphi product to category: ${adelphiCategory}`);
+              }
+            } else if (collectionHandle.includes('rohm')) {
+              // Look for any Rohm category
+              const rohmCategory = [...categoryByNameMap.keys()].find((name) => name.includes('rohm'));
+              if (rohmCategory) {
+                targetCategoryId = categoryByNameMap.get(rohmCategory)!;
+                console.log(`🎯 Mapped Rohm product to category: ${rohmCategory}`);
+              }
             }
           }
         }
 
-        // Assign category if found
+        // If no collection-based category found, try tags or product title
+        if (!targetCategoryId) {
+          const productTitle = productDetails.title?.toLowerCase() || '';
+          const tags = productDetails.tags?.map((tag) => tag.value?.toLowerCase() || '') || [];
+          const allText = [productTitle, ...tags].join(' ');
+
+          console.log(`🔍 Trying fallback categorization for: ${productDetails.title}`);
+
+          // Look for brand mentions in title or tags
+          if (allText.includes('adelphi')) {
+            const adelphiCategory = [...categoryByNameMap.keys()].find((name) => name.includes('adelphi'));
+            if (adelphiCategory) {
+              targetCategoryId = categoryByNameMap.get(adelphiCategory)!;
+              console.log(`🏷️ Categorized by brand (Adelphi): ${adelphiCategory}`);
+            }
+          } else if (allText.includes('rohm')) {
+            const rohmCategory = [...categoryByNameMap.keys()].find((name) => name.includes('rohm'));
+            if (rohmCategory) {
+              targetCategoryId = categoryByNameMap.get(rohmCategory)!;
+              console.log(`🏷️ Categorized by brand (Rohm): ${rohmCategory}`);
+            }
+          }
+        }
+
+        // Apply category if found
         if (targetCategoryId) {
-          await productModuleService.updateProducts(product.id, {
-            category_ids: [targetCategoryId],
-          });
+          try {
+            const workflow = updateProductsWorkflow(container);
+            await workflow.run({
+              input: {
+                products: [
+                  {
+                    id: productDetails.id,
+                    category_ids: [targetCategoryId],
+                  },
+                ],
+              },
+            });
 
-          const categoryName = existingCategories.find((cat) => cat.id === targetCategoryId)?.name || 'Unknown';
-          console.log(`✅ Assigned category "${categoryName}" to product: ${product.title}`);
-          categorizedCount++;
+            const categoryName = existingCategories.find((cat) => cat.id === targetCategoryId)?.name || 'Unknown';
+            console.log(`✅ Assigned category "${categoryName}" to product: ${productDetails.title}`);
+            categorizedCount++;
+          } catch (updateError) {
+            console.log(`❌ Error updating product "${productDetails.title}":`, updateError.message);
+            skippedCount++;
+          }
         } else {
-          console.log(`⚠️ Could not find appropriate category for product: ${product.title}`);
+          console.log(`⚠️ Could not find appropriate category for product: ${productDetails.title}`);
           skippedCount++;
         }
       } catch (error) {
@@ -136,6 +156,8 @@ async function assignProductCategories({ container }: ExecArgs) {
 
     if (categorizedCount > 0) {
       console.log('\n🎉 Category assignment completed successfully!');
+    } else {
+      console.log('\n⚠️ No products were categorized. Check if categories exist and have proper handles/names.');
     }
   } catch (error) {
     console.error('❌ Error during category assignment:', error);
