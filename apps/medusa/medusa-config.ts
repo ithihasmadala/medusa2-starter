@@ -53,11 +53,10 @@ module.exports = defineConfig({
     },
   },
   plugins: [
-    // Temporarily commenting out the product reviews plugin due to module loading issues
-    // {
-    //   resolve: '@lambdacurry/medusa-product-reviews',
-    //   options: {},
-    // },
+    {
+      resolve: '@lambdacurry/medusa-product-reviews',
+      options: {},
+    },
   ],
   modules: [
     {
@@ -82,6 +81,11 @@ module.exports = defineConfig({
     backendUrl: process.env.ADMIN_BACKEND_URL,
     vite: () => {
       return {
+        build: {
+          rollupOptions: {
+            external: ['react-router-dom'],
+          },
+        },
         optimizeDeps: {
           include: ['@lambdacurry/medusa-plugins-sdk'],
         },

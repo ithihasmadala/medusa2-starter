@@ -23,8 +23,11 @@
         "node": ">=20"
     },
     "resolutions": {
-        "@medusajs/js-sdk": "2.7.0",
-        "@medusajs/types": "2.7.0"
+        "@lambdacurry/medusa-product-reviews": "1.2.0",
+        "@medusajs/icons": "2.8.4",
+        "@medusajs/ui": "4.0.14",
+        "react": "19.1.0",
+        "@types/react": "18.3.2"
     },
     "packageManager": "yarn@4.5.0",
     "workspaces": [

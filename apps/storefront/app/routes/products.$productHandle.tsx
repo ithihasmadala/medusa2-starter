@@ -74,27 +74,23 @@ export const loader = async (args: LoaderFunctionArgs) => {
   const relatedProducts = uniqueRelatedProducts.slice(0, 12);
 
   // Reviews plugin needs configuration - temporarily disabled
-  // const [productReviews, productReviewStats] = await Promise.all([
-  //   fetchProductReviews({
-  //     product_id: product.id,
-  //     fields:
-  //       'id,rating,content,name,images.url,created_at,updated_at,response.content,response.created_at,response.id',
-  //     order: 'created_at',
-  //     status: ['approved'],
-  //     // can use status: (pending, approved, flagged)[] to get reviews by status // default is approved
-  //     offset: reviewsOffset,
-  //     limit: reviewsLimit,
-  //   }),
-  //   fetchProductReviewStats({
-  //     product_id: product.id,
-  //     offset: 0,
-  //     limit: 1,
-  //   }),
-  // ]);
-
-  // Mock empty reviews data
-  const productReviews = { count: 0, product_reviews: [] };
-  const productReviewStats = { product_review_stats: [null] };
+  const [productReviews, productReviewStats] = await Promise.all([
+    fetchProductReviews({
+      product_id: product.id,
+      fields:
+        'id,rating,content,name,images.url,created_at,updated_at,response.content,response.created_at,response.id',
+      order: 'created_at',
+      status: ['approved'],
+      // can use status: (pending, approved, flagged)[] to get reviews by status // default is approved
+      offset: reviewsOffset,
+      limit: reviewsLimit,
+    }),
+    fetchProductReviewStats({
+      product_id: product.id,
+      offset: 0,
+      limit: 1,
+    }),
+  ]);
 
   return { product, productReviews, productReviewStats, relatedProducts };
 };
