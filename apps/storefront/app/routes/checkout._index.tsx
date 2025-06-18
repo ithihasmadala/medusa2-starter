@@ -4,10 +4,18 @@ import { Empty } from '@app/components/common/Empty/Empty';
 import { Button } from '@app/components/common/buttons/Button';
 import { CheckoutProvider } from '@app/providers/checkout-provider';
 import ShoppingCartIcon from '@heroicons/react/24/outline/ShoppingCartIcon';
+import 'react-phone-number-input/style.css';
 import { sdk } from '@libs/util/server/client.server';
 import { getCartId, removeCartId } from '@libs/util/server/cookies.server';
-import { initiatePaymentSession, retrieveCart, setShippingMethod } from '@libs/util/server/data/cart.server';
-import { listCartPaymentProviders } from '@libs/util/server/data/payment.server';
+import {
+  initiatePaymentSession,
+  retrieveCart,
+  setShippingMethod,
+} from '@libs/util/server/data/cart.server';
+import {
+  fetchPaymentInstructions,
+  listCartPaymentProviders,
+} from '@libs/util/server/data/payment.server';
 import { CartDTO, StoreCart, StoreCartShippingOption, StorePaymentProvider } from '@medusajs/types';
 import { BasePaymentSession } from '@medusajs/types/dist/http/payment/common';
 import { LoaderFunctionArgs, redirect } from 'react-router';
@@ -30,6 +38,9 @@ const fetchShippingOptions = async (cartId: string) => {
 };
 
 const findCheapestShippingOption = (shippingOptions: StoreCartShippingOption[]) => {
+  if (!shippingOptions?.length) {
+    return undefined;
+  }
   return shippingOptions.reduce((cheapest, current) => {
     return cheapest.amount <= current.amount ? cheapest : current;
   }, shippingOptions[0]);
@@ -52,11 +63,13 @@ const ensureSelectedCartShippingMethod = async (request: Request, cart: StoreCar
 const ensureCartPaymentSessions = async (request: Request, cart: StoreCart) => {
   if (!cart) throw new Error('Cart was not provided.');
 
-  let activeSession = cart.payment_collection?.payment_sessions?.find((session) => session.status === 'pending');
+  let activeSession = cart.payment_collection?.payment_sessions?.find(
+    (session) => session.status === 'pending'
+  );
 
   if (!activeSession) {
     const paymentProviders = await listCartPaymentProviders(cart.region_id!);
-    if (!paymentProviders.length) return activeSession;
+    if (!paymentProviders.length) return null;
 
     const provider = paymentProviders.find((p) => p.id !== SYSTEM_PROVIDER_ID) || paymentProviders[0];
 
@@ -64,10 +77,12 @@ const ensureCartPaymentSessions = async (request: Request, cart: StoreCart) => {
       provider_id: provider.id,
     });
 
-    activeSession = payment_collection.payment_sessions?.find((session) => session.status === 'pending');
+    activeSession = payment_collection.payment_sessions?.find(
+      (session) => session.status === 'pending'
+    );
   }
 
-  return activeSession as BasePaymentSession;
+  return (activeSession as BasePaymentSession) || null;
 };
 
 export const loader = async ({
@@ -77,6 +92,7 @@ export const loader = async ({
   shippingOptions: StoreCartShippingOption[];
   paymentProviders: StorePaymentProvider[];
   activePaymentSession: BasePaymentSession | null;
+  paymentInstructions: string | null;
 }> => {
   const cartId = await getCartId(request.headers);
 
@@ -86,6 +102,7 @@ export const loader = async ({
       shippingOptions: [],
       paymentProviders: [],
       activePaymentSession: null,
+      paymentInstructions: null,
     };
   }
 
@@ -104,11 +121,28 @@ export const loader = async ({
 
   await ensureSelectedCartShippingMethod(request, cart);
 
-  const [shippingOptions, paymentProviders, activePaymentSession] = await Promise.all([
-    await fetchShippingOptions(cartId),
-    (await listCartPaymentProviders(cart.region_id!)) as StorePaymentProvider[],
-    await ensureCartPaymentSessions(request, cart),
-  ]);
+  let activePaymentSession: BasePaymentSession | null = null;
+  let paymentInstructions: string | null = null;
+  let shippingOptions: StoreCartShippingOption[] = [];
+  let paymentProviders: StorePaymentProvider[] = [];
+
+  try {
+    [shippingOptions, paymentProviders, activePaymentSession, paymentInstructions] = await Promise.all([
+      fetchShippingOptions(cartId),
+      listCartPaymentProviders(cart.region_id!) as Promise<StorePaymentProvider[]>,
+      ensureCartPaymentSessions(request, cart),
+      fetchPaymentInstructions(),
+    ]);
+  } catch (error) {
+    console.error(error);
+    return {
+      cart: null,
+      shippingOptions: [],
+      paymentProviders: [],
+      activePaymentSession: null,
+      paymentInstructions: null,
+    };
+  }
 
   const updatedCart = await retrieveCart(request);
 
@@ -117,11 +151,13 @@ export const loader = async ({
     shippingOptions,
     paymentProviders: paymentProviders,
     activePaymentSession: activePaymentSession as BasePaymentSession,
+    paymentInstructions,
   };
 };
 
 export default function CheckoutIndexRoute() {
-  const { shippingOptions, paymentProviders, activePaymentSession, cart } = useLoaderData<typeof loader>();
+  const { shippingOptions, paymentProviders, activePaymentSession, cart, paymentInstructions } =
+    useLoaderData<typeof loader>();
 
   if (!cart || !cart.items?.length)
     return (
@@ -144,6 +180,7 @@ export default function CheckoutIndexRoute() {
         activePaymentSession: activePaymentSession,
         shippingOptions: shippingOptions,
         paymentProviders: paymentProviders,
+        paymentInstructions,
       }}
     >
       <section>

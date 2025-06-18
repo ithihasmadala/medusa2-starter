@@ -17,6 +17,9 @@ export const baseMedusaConfig = {
   baseUrl: MEDUSA_BACKEND_URL,
   debug: process.env.NODE_ENV === 'development',
   publishableKey: config.MEDUSA_PUBLISHABLE_KEY,
+  customPaths: {
+    paymentInstructions: 'payment-instructions',
+  },
 };
 
 export const sdk = new MedusaPluginsSDK({

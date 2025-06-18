@@ -20,9 +20,8 @@ import { RemixFormProvider, useRemixForm } from 'remix-hook-form';
 import { SubmitButton } from '../common/remix-hook-form/buttons/SubmitButton';
 import { FormError } from '../common/remix-hook-form/forms/FormError';
 import { CheckoutSectionHeader } from './CheckoutSectionHeader';
-import HiddenAddressGroup from './HiddenAddressGroup';
-import { MedusaStripeAddress, type StripeAddress } from './MedusaStripeAddress/MedusaStripeAddress';
 import { AddressDisplay } from './address/AddressDisplay';
+import { AddressForm } from './address/AddressForm';
 import { selectInitialShippingAddress } from './checkout-form-helpers';
 
 const NEW_SHIPPING_ADDRESS_ID = 'new';
@@ -73,25 +72,12 @@ export const CheckoutAccountDetails = () => {
     resolver: zodResolver(accountDetailsSchema),
     defaultValues,
     fetcher: checkoutAccountDetailsFormFetcher,
+    mode: 'onBlur',
     submitConfig: {
       method: 'post',
       action: '/api/checkout/account-details',
     },
   });
-
-  const setShippingAddress = (address: StripeAddress) => {
-    form.setValue('shippingAddress.address1', address.address.address1 ?? '');
-    form.setValue('shippingAddress.address2', address.address.address2 ?? '');
-    form.setValue('shippingAddress.city', address.address.city ?? '');
-    form.setValue('shippingAddress.province', address.address.province ?? '');
-    form.setValue('shippingAddress.countryCode', address.address.countryCode ?? '');
-    form.setValue('shippingAddress.postalCode', address.address.postalCode ?? '');
-    form.setValue('shippingAddress.phone', address.address.phone ?? '');
-    form.setValue('shippingAddress.firstName', address.address.firstName ?? '');
-    form.setValue('shippingAddress.lastName', address.address.lastName ?? '');
-    form.setValue('shippingAddress.company', address.address.company ?? '');
-    form.setValue('shippingAddress.phone', address.address.phone ?? '');
-  };
 
   const shippingAddress = form.watch('shippingAddress');
 
@@ -140,16 +126,9 @@ export const CheckoutAccountDetails = () => {
                 className="[&_input]:!ring-0 mb-2"
               />
 
-              <HiddenAddressGroup address={shippingAddress} prefix="shippingAddress" />
+              <AddressForm prefix="shippingAddress" countries={cart.region?.countries ?? []} />
 
               <StyledTextField type="hidden" name="shippingAddressId" value={initialShippingAddressId} />
-
-              <MedusaStripeAddress
-                mode="shipping"
-                address={shippingAddress}
-                allowedCountries={allowedCountries}
-                setAddress={setShippingAddress}
-              />
 
               <FormError />
 

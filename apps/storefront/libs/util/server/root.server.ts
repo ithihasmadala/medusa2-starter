@@ -52,7 +52,8 @@ export const getRootLoader = async ({ request }: LoaderFunctionArgs) => {
       env: {
         NODE_ENV: config.NODE_ENV,
         ENVIRONMENT: config.ENVIRONMENT,
-        STRIPE_PUBLIC_KEY: config.STRIPE_PUBLIC_KEY,
+        STRIPE_PUBLISHABLE_KEY: config.STRIPE_PUBLISHABLE_KEY,
+        GOOGLE_MAPS_API_KEY: config.GOOGLE_MAPS_API_KEY,
         PUBLIC_MEDUSA_API_URL: config.PUBLIC_MEDUSA_API_URL,
         STOREFRONT_URL: config.STOREFRONT_URL,
         SENTRY_DSN: config.SENTRY_DSN,

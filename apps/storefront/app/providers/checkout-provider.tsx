@@ -19,6 +19,7 @@ export interface CheckoutState {
   shippingOptions: StoreCartShippingOption[];
   paymentProviders: StorePaymentProvider[];
   activePaymentSession: BasePaymentSession | null;
+  paymentInstructions: string | null;
 }
 
 export type CheckoutAction = {
@@ -34,6 +35,7 @@ export interface CheckoutProviderProps extends PropsWithChildren {
     shippingOptions: StoreCartShippingOption[];
     paymentProviders: StorePaymentProvider[];
     activePaymentSession: BasePaymentSession | null;
+    paymentInstructions: string | null;
   };
 }
 
@@ -75,6 +77,7 @@ export const CheckoutProvider: FC<CheckoutProviderProps> = ({ data, ...props }) 
     shippingOptions: [],
     paymentProviders: [],
     activePaymentSession: null,
+    paymentInstructions: null,
   } as CheckoutState;
 
   const [state, dispatch] = useReducer(reducer, initialState);

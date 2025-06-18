@@ -33,5 +33,9 @@
     "workspaces": [
         "apps/*",
         "packages/*"
-    ]
+    ],
+    "dependencies": {
+        "react-google-places-autocomplete": "^4.1.0",
+        "react-phone-number-input": "^3.4.12"
+    }
 }

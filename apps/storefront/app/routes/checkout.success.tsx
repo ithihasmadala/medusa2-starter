@@ -7,19 +7,49 @@ import { retrieveOrder } from '@libs/util/server/data/orders.server';
 import { StoreOrder, StorePaymentCollection } from '@medusajs/types';
 import { LoaderFunctionArgs, redirect } from 'react-router';
 import { Link, useLoaderData } from 'react-router';
+import { XCircleIcon } from '@heroicons/react/24/solid';
+import { getCartId, removeCartId } from '@libs/util/server/cookies.server';
+import { sdk } from '@libs/util/server/client.server';
 
-export const loader = async ({ request }: LoaderFunctionArgs): Promise<{ order: StoreOrder }> => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
+  const orderIdFromUrl = url.searchParams.get('order_id');
+  const cartIdFromCookie = await getCartId(request.headers);
 
-  const orderId = url.searchParams.get('order_id') || '';
-
-  if (!orderId) {
-    throw redirect('/');
+  if (!orderIdFromUrl && !cartIdFromCookie) {
+    return redirect('/');
   }
 
-  const order = await retrieveOrder(request, orderId);
+  let order: StoreOrder | undefined;
 
-  return { order };
+  try {
+    if (orderIdFromUrl) {
+      const { order: orderData } = await sdk.store.order.retrieve(orderIdFromUrl, {});
+      order = orderData;
+    } else if (cartIdFromCookie) {
+      const { cart } = await sdk.store.cart.retrieve(cartIdFromCookie);
+      const orderId = (cart as { order_id?: string })?.order_id;
+      if (orderId) {
+        const { order: orderData } = await sdk.store.order.retrieve(orderId, {});
+        order = orderData;
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    return redirect('/');
+  }
+
+  if (!order) {
+    return redirect('/');
+  }
+
+  const headers = new Headers();
+  await removeCartId(headers);
+
+  return {
+    order,
+    headers,
+  };
 };
 
 export default function CheckoutSuccessRoute() {

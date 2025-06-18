@@ -1,18 +1,28 @@
-import { CustomPaymentSession } from '@libs/types';
-import { FC, PropsWithChildren } from 'react';
-import { CompleteCheckoutForm } from '../CompleteCheckoutForm';
+import { Button } from '@app/components/common/buttons';
+import { useCheckout } from '@app/hooks/useCheckout';
+import { FC } from 'react';
 
-export interface ManualPaymentProps extends PropsWithChildren {
-  isActiveStep: boolean;
-  paymentMethods: CustomPaymentSession[];
-}
+export const ManualPayment: FC = () => {
+  const { onPaymentCompleted, paymentInstructions } = useCheckout();
 
-export const ManualPayment: FC<ManualPaymentProps> = (props) => (
-  <CompleteCheckoutForm
-    providerId="pp_system_default"
-    id="TestPaymentForm"
-    submitMessage="Checkout using Test Payment"
-    className="mt-4"
-    {...props}
-  />
-);
+  if (!paymentInstructions) {
+    return (
+      <div className="flex animate-pulse items-center justify-center">
+        <p>Loading payment instructions...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-y-4">
+      <div
+        className="bg-primary-base/10 text-primary-base rounded-lg p-4"
+        dangerouslySetInnerHTML={{ __html: paymentInstructions }}
+      />
+
+      <Button onClick={onPaymentCompleted} className="w-full">
+        Complete Order
+      </Button>
+    </div>
+  );
+};
